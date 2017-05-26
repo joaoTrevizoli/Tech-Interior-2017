@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "WiFiManager.hpp"
 
-WiFiManager wifi("RN-9737", "Du83cXmn");
+WiFiManager wifi(WIFI_SSID, WIFI_PASSWORD);
 
 void setup()
 {
