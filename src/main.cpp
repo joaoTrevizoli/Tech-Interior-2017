@@ -1,16 +1,25 @@
 #include "Arduino.h"
-#include "WiFiManager.hpp"
+#include <ESP8266WiFi.h>
 
-WiFiManager wifi("RN-9737", "Du83cXmn");
+IPAddress localIp;
 
 void setup()
 {
   Serial.begin(115200);
-  wifi.begin();
+  WiFi.begin("__ssid__", "__password__");
 }
 
 void loop()
 {
-  wifi.checkWifi();
+  if(WiFi.status() == WL_CONNECTED)
+  {
+    localIp = WiFi.localIP();
+    Serial.print("Connected with Ip: ");
+    Serial.println(localIp);
+  }
+  else
+  {
+    Serial.println("Not Connected");
+  }
   delay(500);
 }
