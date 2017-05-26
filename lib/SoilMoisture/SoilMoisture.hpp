@@ -1,3 +1,15 @@
+/*SoilMoisture
+    __  _       _      ___   ___  _  _    __
+  / / | | __ _| |__  ( _ ) / _ \| || |   \ \
+/ /   | |/ _` | '_ \ / _ \| | | | || |_   \ \
+\ \   | | (_| | |_) | (_) | |_| |__   _|  / /
+ \_\  |_|\__,_|_.__/ \___/ \___/   |_|   /_/
+
+Interface of the Soil Moisture Sensor
+
+Created by: João Trevizoli Este ves
+*/
+
 #ifndef SOILMOISTURE_HPP
 #define  SOILMOISTURE_HPP
 
@@ -7,9 +19,6 @@
 #else
  #include "WProgram.h"
 #endif
-
-
-// -------------------------Class Interface---------------------------------- //
 
 class SoilMoisture
 {
