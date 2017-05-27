@@ -20,8 +20,7 @@ Created by: Joao Trevizoli Esteves
 class MqttManager
 {
 public:
-  MqttManager(const char* host, uint16_t port, const char* topic, \
-    const char* id, const char* password);
+  MqttManager(const char* host, uint16_t port, const char* topic);
   void begin();
   bool checkConnection();
   void publish(uint16_t sensorMeasurement);

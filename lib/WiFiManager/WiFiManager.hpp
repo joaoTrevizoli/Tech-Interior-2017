@@ -9,29 +9,29 @@ This object is responsable for facilitating the management
 of the the wifi connection.
 Created by: Joao Trevizoli Esteves
 */
-
-#ifndef WIFICONN_HPP
-#define  WIFICONN_HPP
+#ifndef WIFIMANAGER_HPP
+#define  WIFIMANAGER_HPP
 // -------------------------------------------------------------------------- //
 #include <ESP8266WiFi.h>
+
+// -------------------------------------------------------------------------- //
 
 class WiFiManager
 {
 public:
-
-  IPAddress localIp;
-
-  WiFiManager(const char* ssid, const char* password);
-  void begin();
-  void connect();
-  void disconnect();
-  bool checkWifi();
-  void ipChanged();
+    IPAddress clientLocalIp;
+    WiFiManager(const char* SSID, const char* Password='\0');
+    ~WiFiManager();
+    void begin();
+    bool checkWiFi();
+    void localIpChange();
+    void disconnect();
 
 private:
-  const char* _ssid;
-  const char* _password;
-
+    void connect();
+    const uint32_t ipChangeUpdateInterval = 5000;
+    uint32_t previousUpdate = 0;
+    const char* ssid;
+    const char* password;
 };
-
 #endif

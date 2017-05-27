@@ -1,9 +1,8 @@
 #include "MqttManager.hpp"
 
-MqttManager::MqttManager(const char* host, uint16_t port, const char* topic, \
-  const char* id, const char* password):
+MqttManager::MqttManager(const char* host, uint16_t port, const char* topic):
   wifiClient(WiFiClientSecure()),
-  mqtt(Adafruit_MQTT_Client(&wifiClient, host, port, id, password)),
+  mqtt(Adafruit_MQTT_Client(&wifiClient, host, port)),
   sensor_publisher(Adafruit_MQTT_Publish(&mqtt, topic))
 {
 
