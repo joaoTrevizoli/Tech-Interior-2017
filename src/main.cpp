@@ -2,7 +2,7 @@
 #include "SoilMoisture.hpp"
 #include "WiFiManager.hpp"
 
-WiFiConn wifi("H Recreio 19");
+WiFiConn wifi(WIFI_SSID);
 IPAddress localIp;
 
 SoilMoisture soilMoisture(A0);
