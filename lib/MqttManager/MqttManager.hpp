@@ -17,7 +17,7 @@ Created by: Joao Trevizoli Esteves
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-#define JSON "{\"id\": %s, \"soil_umidity\": %s}"
+#define JSON "{\"id\": \"%s\", \"soil_umidity\": %s}"
 
 class MqttManager
 {
