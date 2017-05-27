@@ -1,32 +1,20 @@
 #include "Arduino.h"
 #include "SoilMoisture.hpp"
-#include <ESP8266WiFi.h>
-
-IPAddress localIp;
+#include "WiFiManager.hpp"
 
 SoilMoisture soilMoisture(A0);
-
+WiFiManager wifi("H Recreio 19");
 void setup()
 {
   Serial.begin(115200);
   // WiFi.begin("__ssid__", "__password__");
-  WiFi.begin("H Recreio 19");
+  wifi.begin();
   soilMoisture.begin();
 }
 
 void loop()
 {
-  if(WiFi.status() == WL_CONNECTED)
-  {
-    localIp = WiFi.localIP();
-    Serial.print("Connected with Ip: ");
-    Serial.println(localIp);
-  }
-  else
-  {
-    Serial.println("Not Connected");
-  }
-
+  wifi.checkWiFi();
   Serial.print("Humidity in percentage: ");
   Serial.println(soilMoisture.soilHumidityPercent(0, 100));
   delay(500);
