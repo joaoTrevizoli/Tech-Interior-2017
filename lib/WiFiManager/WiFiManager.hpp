@@ -1,12 +1,15 @@
-/*WiFiManager
+/*WiFiConn
     __  _       _      ___   ___  _  _    __
   / / | | __ _| |__  ( _ ) / _ \| || |   \ \
 / /   | |/ _` | '_ \ / _ \| | | | || |_   \ \
 \ \   | | (_| | |_) | (_) | |_| |__   _|  / /
  \_\  |_|\__,_|_.__/ \___/ \___/   |_|   /_/
-Interface of the WiFiManager object
+
+Interface of the WiFiConn Sensor object
+
 This object is responsable for facilitating the management
 of the the wifi connection.
+
 Created by: Joao Trevizoli Esteves
 */
 
@@ -15,23 +18,24 @@ Created by: Joao Trevizoli Esteves
 // -------------------------------------------------------------------------- //
 #include <ESP8266WiFi.h>
 
-class WiFiManager
+// -------------------------------------------------------------------------- //
+
+class WiFiConn
 {
 public:
-
-  IPAddress localIp;
-
-  WiFiManager(const char* ssid, const char* password);
+  IPAddress clientLocalIp;
+  WiFiConn(const char* SSID, const char* Password='\0');
+  ~WiFiConn();
   void begin();
-  void connect();
+  bool checkWiFi();
+  void localIpChange();
   void disconnect();
-  bool checkWifi();
-  void ipChanged();
 
 private:
-  const char* _ssid;
-  const char* _password;
-
+  void connect();
+  const uint32_t ipChangeUpdateInterval = 5000;
+  uint32_t previousUpdate = 0;
+  const char* ssid;
+  const char* password;
 };
-
 #endif

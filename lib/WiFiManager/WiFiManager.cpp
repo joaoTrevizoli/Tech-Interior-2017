@@ -1,12 +1,15 @@
-/*WiFiManager
+/*WiFiConn
     __  _       _      ___   ___  _  _    __
   / / | | __ _| |__  ( _ ) / _ \| || |   \ \
 / /   | |/ _` | '_ \ / _ \| | | | || |_   \ \
 \ \   | | (_| | |_) | (_) | |_| |__   _|  / /
  \_\  |_|\__,_|_.__/ \___/ \___/   |_|   /_/
-Implementation of the WiFiManager object
+
+Implementation of the WiFiConn Sensor object
+
 This object is responsable for facilitating the management
 of the the wifi connection.
+
 Created by: Joao Trevizoli Esteves
 */
 
@@ -14,72 +17,95 @@ Created by: Joao Trevizoli Esteves
 
 // -------------------------Constructor-------------------------------------- //
 
-WiFiManager::WiFiManager(const char* ssid, const char* password):
-  _ssid(ssid),
-  _password(password)
+WiFiConn::WiFiConn(const char* SSID, const char* Password)
 {
+  this->ssid = SSID;
+  this->password = Password;
 }
+
+// -------------------------Destructor-------------------------------------- -//
+
+
+WiFiConn::~WiFiConn()
+{
+  if (this->checkWiFi())
+  {
+    WiFi.disconnect();
+  }
+}
+
 // -------------------------Public methods----------------------------------- //
 
-void WiFiManager::begin()
+void WiFiConn::begin()
 {
   this->connect();
 }
 
 // -------------------------------------------------------------------------- //
 
-void WiFiManager::connect()
+
+bool WiFiConn::checkWiFi()
 {
-
-  Serial.print("Conecting to:");
-  Serial.println("_ssid");
-
-  WiFi.begin(_ssid, _password);
-  delay(300);
+  if (millis() - this->previousUpdate > this->ipChangeUpdateInterval)
+  {
+    this->previousUpdate = millis();
+    this->localIpChange();
+  }
   if(WiFi.status() == WL_CONNECTED)
   {
-    Serial.println("connected!");
-    localIp = WiFi.localIP();
-  }
-  else
-  {
-    Serial.println("Failed to connect!");
-  }
-}
-
-// -------------------------------------------------------------------------- //
-
-void WiFiManager::disconnect()
-{
-  WiFi.disconnect();
-}
-
-// -------------------------------------------------------------------------- //
-
-bool WiFiManager::checkWifi()
-{
-  if(WiFi.status() == WL_CONNECTED)
-  {
-    Serial.println("Still connected!");
+    Serial.println("conected");
     return true;
   }
   else
   {
-    Serial.println("Not connected!");
+    Serial.println("not conected");
     return false;
   }
 }
 
 // -------------------------------------------------------------------------- //
 
-void WiFiManager::ipChanged()
+void WiFiConn::localIpChange()
 {
-  if(localIp != WiFi.localIP())
+  if (clientLocalIp != WiFi.localIP())
   {
-    localIp = WiFi.localIP();
-    Serial.print("The Ip changed to: ");
-    Serial.println(localIp);
+    clientLocalIp = WiFi.localIP();
+      Serial.print("The local IP has changed to ");
+      Serial.println(clientLocalIp);
   }
 }
 
 // -------------------------------------------------------------------------- //
+void WiFiConn::disconnect()
+{
+  WiFi.disconnect();
+}
+
+// -------------------------Private methods---------------------------------- //
+
+void WiFiConn::connect()
+{
+
+  if(password)
+  {
+    WiFi.begin(this->ssid, this->password);
+  }
+  else
+  {
+    WiFi.begin(this->ssid);
+  }
+
+  delay(1000);
+
+  if (WiFi.status() == WL_CONNECTED)
+  {
+    clientLocalIp = WiFi.localIP();
+    Serial.print("WiFi connected!\n IP: ");
+    Serial.println(clientLocalIp);
+  }
+  {
+    Serial.println("Can't connect");
+  }
+}
+
+// -------------------------End of class implementation---------------------- //
