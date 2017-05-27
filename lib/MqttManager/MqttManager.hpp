@@ -23,7 +23,7 @@ class MqttManager
 {
 public:
   MqttManager(const char* host, uint16_t port, const char* topic, \
-    const char* mqttId, const char* password, const char* stationId);
+    const char* stationId);
   void begin();
   bool checkConnection();
   void publish(float_t sensorMeasurement);

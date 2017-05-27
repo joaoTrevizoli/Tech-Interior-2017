@@ -3,10 +3,10 @@
 #include "WiFiManager.hpp"
 #include "MqttManager.hpp"
 
-WiFiManager wifi(WIFI_SSID, WIFI_PASSWORD);
+WiFiManager wifi(WIFI_SSID);
 
-MqttManager mqttManager("mqtt.labmet.tech", 8883,\
- "/tech_interior/", MQTT_ID, MQTT_PASSWORD, "station_01");
+MqttManager mqttManager("192.168.200.69", 8883,\
+ "/tech_interior/", "station_01");
 
 SoilMoisture soilMoistureSensor(A0);
 
@@ -22,7 +22,8 @@ void setup()
 void loop()
 {
   uint16_t soilMoisture = soilMoistureSensor.soilHumidityPercent(0, 100);
-  wifi.checkWifi();
+  wifi.checkWiFi();
+  mqttManager.checkConnection();
   mqttManager.publish(soilMoisture);
   delay(500);
 }

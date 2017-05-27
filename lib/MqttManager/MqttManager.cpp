@@ -16,9 +16,9 @@ Created by: Joao Trevizoli Esteves
 // -------------------------Constructor-------------------------------------- //
 
 MqttManager::MqttManager(const char* host, uint16_t port, const char* topic, \
-  const char* mqttId, const char* password, const char* stationId):
+  const char* stationId):
   wifiClient(WiFiClientSecure()),
-  mqtt(Adafruit_MQTT_Client(&wifiClient, host, port, mqttId, password)),
+  mqtt(Adafruit_MQTT_Client(&wifiClient, host, port)),
   sensor_publisher(Adafruit_MQTT_Publish(&mqtt, topic))
 {
   _stationId = stationId;
