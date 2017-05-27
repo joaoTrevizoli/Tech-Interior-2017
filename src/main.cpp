@@ -4,14 +4,13 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-WiFiManager wifi(WIFI_SSID, WIFI_PASSWORD);
+WiFiManager wifi(WIFI_SSID);
 IPAddress localIp;
 
 SoilMoisture soilMoistureSensor(A0);
 
 WiFiClientSecure wifiClient;
-Adafruit_MQTT_Client mqtt(&wifiClient, "mqtt.labmet.tech", 8883, \
- MQTT_ID, MQTT_PASSWORD);
+Adafruit_MQTT_Client mqtt(&wifiClient, "192.168.200.69", 8883);
 
  Adafruit_MQTT_Publish publisher(&mqtt, "/tech_interior/");
 
@@ -25,7 +24,7 @@ void setup()
 
 void loop()
 {
-  wifi.checkWifi();
+  wifi.checkWiFi();
   uint16_t soilMoisture = soilMoistureSensor.soilHumidityPercent(0, 100);
 
   if(mqtt.ping() != 0 | mqtt.connect())
