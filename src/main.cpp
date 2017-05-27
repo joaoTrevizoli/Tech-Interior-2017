@@ -6,7 +6,7 @@
 WiFiManager wifi(WIFI_SSID, WIFI_PASSWORD);
 
 MqttManager mqttManager("mqtt.labmet.tech", 8883,\
- "/tech_interior/", MQTT_ID, MQTT_PASSWORD);
+ "/tech_interior/", MQTT_ID, MQTT_PASSWORD, "station_01");
 
 SoilMoisture soilMoistureSensor(A0);
 

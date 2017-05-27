@@ -17,16 +17,18 @@ Created by: Joao Trevizoli Esteves
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
+#define JSON "{\"id\": %s, \"soil_umidity\": %s}"
+
 class MqttManager
 {
 public:
   MqttManager(const char* host, uint16_t port, const char* topic, \
-    const char* id, const char* password);
+    const char* mqttId, const char* password, const char* stationId);
   void begin();
   bool checkConnection();
-  void publish(uint16_t sensorMeasurement);
+  void publish(float_t sensorMeasurement);
 private:
-
+  const char* _stationId;
   WiFiClientSecure wifiClient;
   Adafruit_MQTT_Client mqtt;
   Adafruit_MQTT_Publish sensor_publisher;
