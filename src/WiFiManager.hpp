@@ -9,7 +9,7 @@ public:
 
   IPAddress localIp;
 
-  WiFiManager(const char* ssid, const char* password);
+  WiFiManager(const char* ssid, const char* password=false);
   void begin();
   void connect();
   void disconnect();

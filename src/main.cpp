@@ -9,7 +9,8 @@ SoilMoisture soilMoisture(A0);
 void setup()
 {
   Serial.begin(115200);
-  WiFi.begin("__ssid__", "__password__");
+  // WiFi.begin("__ssid__", "__password__");
+  WiFi.begin("H Recreio 19");
   soilMoisture.begin();
 }
 

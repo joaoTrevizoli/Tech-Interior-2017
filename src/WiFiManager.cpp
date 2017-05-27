@@ -18,8 +18,14 @@ void WiFiManager::connect()
 
   Serial.print("Conecting to:");
   Serial.println("_ssid");
-
-  WiFi.begin(_ssid, _password);
+  if (_password!=false)
+  {
+    WiFi.begin(_ssid, _password);
+  }
+  else
+  {
+    WiFi.begin(_ssid);
+  }
   delay(300);
   if(WiFi.status() == WL_CONNECTED)
   {
